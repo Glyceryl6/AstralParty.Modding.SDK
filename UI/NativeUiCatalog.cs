@@ -21,7 +21,10 @@ public enum NativeWidgetKind {
     ScrollPane,
     ScrollBar,
     HistoryWindow,
-    PopupFooter
+    PopupFooter,
+    ToggleGroup,
+    ProfileActionButton,
+    SettingsIconButton
 }
 
 public sealed record NativePrefabDescriptor(NativeWidgetKind Kind, string Package,
@@ -57,9 +60,20 @@ public static class NativeUiCatalog {
         new(NativeWidgetKind.HistoryWindow, "GachaInfo", "GachaInfoWindow", "FairyGUI.GComponent");
     public static NativePrefabDescriptor PopupFooter { get; } =
         new(NativeWidgetKind.PopupFooter, "Common", "Com_PopUpWindow_Bottom", "FairyGUI.GLabel");
+    // Generated UISetting_Com_Camera exposes three check-button fields.
+    public static NativePrefabDescriptor ToggleGroup { get; } =
+        new(NativeWidgetKind.ToggleGroup, "Setting", "Setting_Com_Camera", "FairyGUI.GComponent",
+            "UISetting_Com_Camera.com_KeyBoardSwither/com_MouseSwither/com_FreeCameraSwither");
+    public static NativePrefabDescriptor ProfileActionButton { get; } =
+        new(NativeWidgetKind.ProfileActionButton, "AccountInfo", "Account_Button_Operator",
+            "FairyGUI.GButton", "UIAccount_Button_Operator.type");
+    public static NativePrefabDescriptor SettingsIconButton { get; } =
+        new(NativeWidgetKind.SettingsIconButton, "Setting", "Setting_Com_Button", "FairyGUI.GButton",
+            "UISetting_Com_Button.info");
 
     public static IReadOnlyList<NativePrefabDescriptor> All { get; } = Array.AsReadOnly(new[] {
         Window, Toast, ActionButton, CheckBox, Slider, Input, ComboBox,
-        GroupBox, ScrollPane, ScrollBar, HistoryWindow, PopupFooter
+        GroupBox, ScrollPane, ScrollBar, HistoryWindow, PopupFooter,
+        ToggleGroup, ProfileActionButton, SettingsIconButton
     });
 }

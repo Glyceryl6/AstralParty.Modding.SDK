@@ -9,7 +9,7 @@ namespace AstralParty.Modding.SDK;
 /// SDK 只存托管契约，游戏调用交由宿主适配层处理。
 /// </summary>
 public static class SdkHost {
-    public static Version ApiVersion { get; } = new(0, 5, 0);
+    public static Version ApiVersion { get; } = new(0, 6, 0);
     public static IRuntimeCapabilitySource? Capabilities { get; private set; }
     public static IModUiService? Ui { get; private set; }
     public static IClientValueRegistry? ClientValues { get; private set; }
