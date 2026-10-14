@@ -23,6 +23,35 @@ public static class NativeUiLayout {
         return units * fontSize;
     }
 
+    /// <summary>Native tabs are authored at their pre-animation position.</summary>
+    public static float TabArtworkX(float nativeX, float columnOffset, float correction) {
+        return nativeX + columnOffset + correction;
+    }
+
+    /// <summary>
+    /// Reserve room for both outlines and CJK glyph bearings. A clipped text
+    /// rectangle may lose the last character even when its font has that glyph.
+    /// </summary>
+    public static float OutlinedCaptionPadding(float fontSize, float outlineWidth) {
+        if (fontSize <= 0f || outlineWidth < 0f) {
+            throw new ArgumentOutOfRangeException(nameof(fontSize));
+        }
+        return Math.Max(6f, fontSize * 0.13f + outlineWidth * 2f);
+    }
+
+    /// <summary>Two compact, equally sized action buttons on a centered row.</summary>
+    public static IReadOnlyList<UiLayoutRect> TwoActions(float availableWidth,
+        float firstY, float rowHeight, float desiredWidth = 300f,
+        float gap = 24f, float inset = 20f) {
+        if (availableWidth <= 0f || desiredWidth <= 0f) {
+            throw new ArgumentOutOfRangeException(nameof(availableWidth));
+        }
+        float natural = Math.Min(desiredWidth,
+            Math.Max(1f, (availableWidth - 2f * inset - gap) * 0.5f));
+        return CenteredFlow(new[] { natural, natural }, availableWidth,
+            firstY, rowHeight, gap, 12f, inset);
+    }
+
     /// <summary>Toggle width reserves room for the icon on its right.</summary>
     public static float ToggleWidth(string? text, float fontSize, float nativeWidth,
         float iconSpace = 70f, float horizontalInset = 16f) {

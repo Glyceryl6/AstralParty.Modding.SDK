@@ -37,6 +37,9 @@ public static class NativeUiCatalog {
         new(NativeWidgetKind.Toast, "SystemTips", "SystemTipsWindow", "FairyGUI.GComponent");
     public static NativePrefabDescriptor ActionButton { get; } =
         new(NativeWidgetKind.ActionButton, "Setting", "Setting_Button_Operate", "FairyGUI.GButton");
+    public static NativePrefabDescriptor ReplayActionButton { get; } =
+        new(NativeWidgetKind.ActionButton, "Setting", "Setting_Button_Operate",
+            "FairyGUI.GButton");
     public static NativePrefabDescriptor CheckBox { get; } =
         new(NativeWidgetKind.CheckBox, "Setting", "Setting_Com_Toggle", "FairyGUI.GButton");
     public static NativePrefabDescriptor Input { get; } =
@@ -72,7 +75,7 @@ public static class NativeUiCatalog {
             "UISetting_Com_Button.info");
 
     public static IReadOnlyList<NativePrefabDescriptor> All { get; } = Array.AsReadOnly(new[] {
-        Window, Toast, ActionButton, CheckBox, Slider, Input, ComboBox,
+        Window, Toast, ActionButton, ReplayActionButton, CheckBox, Slider, Input, ComboBox,
         GroupBox, ScrollPane, ScrollBar, HistoryWindow, PopupFooter,
         ToggleGroup, ProfileActionButton, SettingsIconButton
     });
