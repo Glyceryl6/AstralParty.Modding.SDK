@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>AstralParty.Modding.SDK</AssemblyName>
+    <RootNamespace>AstralParty.Modding.SDK</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Version>0.5.0</Version>
+    <Description>Version-tolerant, pure-managed contracts for Astral Party IL2CPP mods.</Description>
+  </PropertyGroup>
+</Project>
