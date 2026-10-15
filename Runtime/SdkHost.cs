@@ -9,12 +9,13 @@ namespace AstralParty.Modding.SDK;
 /// SDK 只存托管契约，游戏调用交由宿主适配层处理。
 /// </summary>
 public static class SdkHost {
-    public static Version ApiVersion { get; } = new(0, 6, 1);
+    public static Version ApiVersion { get; } = new(0, 6, 2);
     public static IRuntimeCapabilitySource? Capabilities { get; private set; }
     public static IModUiService? Ui { get; private set; }
     public static IClientValueRegistry? ClientValues { get; private set; }
     private static Func<IStatisticReader?>? _ownStatistics;
     private static Func<IIndexedStatisticReader?>? _indexedStatistics;
+    private static Func<ICharacterProfileReader?>? _characterProfiles;
 
     /// <summary>Called once by AstralProbe's startup; not a game hook.</summary>
     public static void Initialize(IRuntimeCapabilitySource capabilities,
@@ -46,6 +47,20 @@ public static class SdkHost {
             throw new InvalidOperationException("SDK indexed statistics provider was already attached or host is unavailable");
         }
         _indexedStatistics = readerFactory;
+    }
+
+    /// <summary>Optional per-character progression and owned cosmetics provider.</summary>
+    public static void AttachCharacterProfiles(Func<ICharacterProfileReader?> readerFactory) {
+        ArgumentNullException.ThrowIfNull(readerFactory);
+        if (Capabilities == null || _characterProfiles != null) {
+            throw new InvalidOperationException("SDK character profile provider was already attached or host is unavailable");
+        }
+        _characterProfiles = readerFactory;
+    }
+
+    public static IReadOnlyList<CharacterProfile> ReadOwnCharacterProfiles() {
+        ICharacterProfileReader? reader = _characterProfiles?.Invoke();
+        return reader == null ? Array.Empty<CharacterProfile>() : reader.ReadProfiles();
     }
 
     public static IReadOnlyList<IndexedStatisticRow> ReadOwnIndexedStatistics() {
