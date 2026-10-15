@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
-    <Version>0.6.1</Version>
+    <Version>0.6.2</Version>
     <Description>Version-tolerant, pure-managed contracts for Astral Party IL2CPP mods.</Description>
   </PropertyGroup>
 </Project>
