@@ -32,6 +32,8 @@ public interface IModUiBuilder {
     void AddText(string text);
     void AddToggle(string label, Func<bool> read, Action<bool> write);
     void AddAction(string label, Action onClick);
+    /// <summary>Render two action buttons in one row, wrapping when necessary.</summary>
+    void AddActionsRow(string leftLabel, Action leftAction, string rightLabel, Action rightAction);
     void AddDynamicText(Func<string> read);
 }
 
