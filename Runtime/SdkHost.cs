@@ -9,13 +9,14 @@ namespace AstralParty.Modding.SDK;
 /// SDK 只存托管契约，游戏调用交由宿主适配层处理。
 /// </summary>
 public static class SdkHost {
-    public static Version ApiVersion { get; } = new(0, 6, 5);
+    public static Version ApiVersion { get; } = new(0, 6, 6);
     public static IRuntimeCapabilitySource? Capabilities { get; private set; }
     public static IModUiService? Ui { get; private set; }
     public static IClientValueRegistry? ClientValues { get; private set; }
     private static Func<IStatisticReader?>? _ownStatistics;
     private static Func<IIndexedStatisticReader?>? _indexedStatistics;
     private static Func<ICharacterProfileReader?>? _characterProfiles;
+    private static Func<IAccountCosmeticReader?>? _cosmetics;
 
     /// <summary>Called once by AstralProbe's startup; not a game hook.</summary>
     public static void Initialize(IRuntimeCapabilitySource capabilities,
@@ -56,6 +57,19 @@ public static class SdkHost {
             throw new InvalidOperationException("SDK character profile provider was already attached or host is unavailable");
         }
         _characterProfiles = readerFactory;
+    }
+
+    public static void AttachCosmeticCollection(Func<IAccountCosmeticReader?> readerFactory) {
+        ArgumentNullException.ThrowIfNull(readerFactory);
+        if (Capabilities == null || _cosmetics != null) {
+            throw new InvalidOperationException("Cosmetic reader already attached or host unavailable");
+        }
+        _cosmetics = readerFactory;
+    }
+
+    public static IReadOnlyList<CosmeticCollectionRow> ReadOwnCosmetics() {
+        IAccountCosmeticReader? source = _cosmetics?.Invoke();
+        return source == null ? Array.Empty<CosmeticCollectionRow>() : source.ReadCollections();
     }
 
     public static IReadOnlyList<CharacterProfile> ReadOwnCharacterProfiles() {

@@ -53,6 +53,10 @@ public static class StatisticCatalog {
         Add(StatisticConditionId.TotalEatDumplingCount, "dumplings", StatisticCategories.Battle);
         Add(StatisticConditionId.TotalAvoidTrainGames, "train_dodges", StatisticCategories.Battle);
         Add(StatisticConditionId.TotalGetThumbsUp, "likes_received", StatisticCategories.Social);
+        Add(StatisticConditionId.TotalBondLevelUpcount, "bond_levelups", StatisticCategories.Social);
+        Add(StatisticConditionId.TotalWinGameCountPveAny, "pve_any_wins", StatisticCategories.Career);
+        Add(StatisticConditionId.TotalSinkAllOpponentsTimes, "all_opponents_down", StatisticCategories.Combat);
+        Add(StatisticConditionId.DragonBallSynthesis, "dragonball_synthesis", StatisticCategories.Battle);
         Add(StatisticConditionId.TotalPlayDaysPve, "pve_days", StatisticCategories.Career);
         Add(StatisticConditionId.TotalWinGameCountPve, "pve_wins", StatisticCategories.Career);
         Add(StatisticConditionId.TotalRelicCountPve, "pve_relics", StatisticCategories.Battle);

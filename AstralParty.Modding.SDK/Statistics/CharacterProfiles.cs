@@ -35,6 +35,9 @@ namespace AstralParty.Modding.SDK {
         int? BondExperienceRequired = null) {
         /// <summary>Localized name of the currently selected skin, if available.</summary>
         public string? EquippedSkinName { get; init; }
+        /// <summary>Friendship deepening after the standard bond level cap.</summary>
+        public int? FriendshipDeepeningExperience { get; init; }
+        public int? FriendshipDeepeningRequired { get; init; }
     }
 
     public interface ICharacterProfileReader {
@@ -59,6 +62,9 @@ namespace AstralParty.Modding.SDK {
             }
             return Number(current) + "/" + Number(required);
         }
+
+        public static string PotentialActivated(OwnedTotal? talents) => talents.HasValue
+            ? YesNo(talents.Value.Owned > 0) : "—";
 
         public static string SkinName(string? name) => string.IsNullOrWhiteSpace(name)
             ? "—" : name.Trim();

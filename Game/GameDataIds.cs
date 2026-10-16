@@ -59,6 +59,7 @@ public enum GameLocalizationTableId {
     // Verified against 2026-10-16 UI.UIStringType. The game inserted
     // another table before Character; old values queried STRCard.
     // 2026-10-16 热更枚举值；旧 Character=10 会错查 STRCard。
+    Achieve = 0,
     Card = 10,
     Character = 11,
     Item = 29,
