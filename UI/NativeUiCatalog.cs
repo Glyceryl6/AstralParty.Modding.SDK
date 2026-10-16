@@ -24,7 +24,12 @@ public enum NativeWidgetKind {
     PopupFooter,
     ToggleGroup,
     ProfileActionButton,
-    SettingsIconButton
+    SettingsIconButton,
+    HistoryRecord,
+    HistoryRecordRow,
+    ShortcutBindingGroup,
+    ShortcutBindingField,
+    ShortcutBindingDialog
 }
 
 public sealed record NativePrefabDescriptor(NativeWidgetKind Kind, string Package,
@@ -74,9 +79,30 @@ public static class NativeUiCatalog {
         new(NativeWidgetKind.SettingsIconButton, "Setting", "Setting_Com_Button", "FairyGUI.GButton",
             "UISetting_Com_Button.info");
 
+    // Confirmed from the 2026-10-16 generated UI wrappers. These are
+    // descriptors only: no SDK code constructs native game UI objects.
+    // 新增快捷键输入组件，仅登记资源，不接管游戏快捷键。
+    public static NativePrefabDescriptor HistoryRecord { get; } =
+        new(NativeWidgetKind.HistoryRecord, "GachaInfo", "GachaInfo_Com_Record",
+            "FairyGUI.GComponent", "btn_Left(14), txt_Page(15), btn_Right(16)");
+    public static NativePrefabDescriptor HistoryRecordRow { get; } =
+        new(NativeWidgetKind.HistoryRecordRow, "GachaInfo", "GachaInfo_Com_RecordItem",
+            "FairyGUI.GComponent", "txt_type(0), txt_Name(1), txt_Num(2), txt_Time(3)");
+    public static NativePrefabDescriptor ShortcutBindingGroup { get; } =
+        new(NativeWidgetKind.ShortcutBindingGroup, "Setting", "Setting_Com_BindingButton",
+            "FairyGUI.GComponent", "bind_Skill, bind_Move, bind_Mark, bind_Tool, btn_reset");
+    public static NativePrefabDescriptor ShortcutBindingField { get; } =
+        new(NativeWidgetKind.ShortcutBindingField, "Setting", "Setting_Com_ButtonBind",
+            "FairyGUI.GComponent", "UISetting_Com_ButtonBind.title : FairyGUI.GTextField");
+    public static NativePrefabDescriptor ShortcutBindingDialog { get; } =
+        new(NativeWidgetKind.ShortcutBindingDialog, "Setting", "Setting_ButtonBinding_Win",
+            "FairyGUI.GComponent", "UISetting_ButtonBinding_Win.txt_BingButton");
+
     public static IReadOnlyList<NativePrefabDescriptor> All { get; } = Array.AsReadOnly(new[] {
         Window, Toast, ActionButton, ReplayActionButton, CheckBox, Slider, Input, ComboBox,
         GroupBox, ScrollPane, ScrollBar, HistoryWindow, PopupFooter,
-        ToggleGroup, ProfileActionButton, SettingsIconButton
+        ToggleGroup, ProfileActionButton, SettingsIconButton, HistoryRecord,
+        HistoryRecordRow, ShortcutBindingGroup, ShortcutBindingField,
+        ShortcutBindingDialog
     });
 }
