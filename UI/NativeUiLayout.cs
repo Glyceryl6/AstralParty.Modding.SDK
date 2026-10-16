@@ -23,6 +23,20 @@ public static class NativeUiLayout {
         return units * fontSize;
     }
 
+    /// <summary>
+    /// Minimum width for outlined single-line text. Reserves glyph bearings,
+    /// stroke and editor/runtime metrics differences. A host may enlarge the
+    /// nine-slice background separately, using the same calculated width.
+    /// </summary>
+    public static float OutlineSafeCaptionWidth(string? text, float fontSize,
+        float outlineWidth, float inset = 8f) {
+        if (inset < 0f) {
+            throw new ArgumentOutOfRangeException(nameof(inset));
+        }
+        return EstimateCaptionWidth(text, fontSize) * 1.16f +
+            2f * (OutlinedCaptionPadding(fontSize, outlineWidth) + inset);
+    }
+
     /// <summary>Native tabs are authored at their pre-animation position.</summary>
     public static float TabArtworkX(float nativeX, float columnOffset, float correction) {
         return nativeX + columnOffset + correction;

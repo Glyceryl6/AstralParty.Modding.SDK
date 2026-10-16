@@ -31,7 +31,8 @@ namespace AstralParty.Modding.SDK {
         int EntityId, string Title, string Name, bool IsOwned,
         bool IsFavorite, int? PveLevel, int? PveExperience,
         int? BondLevel, int? BondExperience, bool? IsContracted,
-        OwnedTotal? Skins, OwnedTotal? Expressions, OwnedTotal? PveTalents);
+        OwnedTotal? Skins, OwnedTotal? Expressions, OwnedTotal? PveTalents,
+        int? BondExperienceRequired = null);
 
     public interface ICharacterProfileReader {
         IReadOnlyList<CharacterProfile> ReadProfiles();
