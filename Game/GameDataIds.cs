@@ -61,5 +61,6 @@ public enum GameLocalizationTableId {
     // 2026-10-16 热更枚举值；旧 Character=10 会错查 STRCard。
     Card = 10,
     Character = 11,
+    Item = 29,
     Map = 32
 }

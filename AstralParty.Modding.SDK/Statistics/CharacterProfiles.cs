@@ -32,7 +32,10 @@ namespace AstralParty.Modding.SDK {
         bool IsFavorite, int? PveLevel, int? PveExperience,
         int? BondLevel, int? BondExperience, bool? IsContracted,
         OwnedTotal? Skins, OwnedTotal? Expressions, OwnedTotal? PveTalents,
-        int? BondExperienceRequired = null);
+        int? BondExperienceRequired = null) {
+        /// <summary>Localized name of the currently selected skin, if available.</summary>
+        public string? EquippedSkinName { get; init; }
+    }
 
     public interface ICharacterProfileReader {
         IReadOnlyList<CharacterProfile> ReadProfiles();
@@ -48,5 +51,16 @@ namespace AstralParty.Modding.SDK {
 
         public static string Progress(OwnedTotal? value) => value.HasValue
             ? value.Value.ToString() : "—";
+
+        /// <summary>Current friendship EXP / EXP required for this level.</summary>
+        public static string FriendshipExperience(int? current, int? required) {
+            if (!current.HasValue || !required.HasValue || required.Value <= 0) {
+                return "—";
+            }
+            return Number(current) + "/" + Number(required);
+        }
+
+        public static string SkinName(string? name) => string.IsNullOrWhiteSpace(name)
+            ? "—" : name.Trim();
     }
 }
