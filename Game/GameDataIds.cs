@@ -56,6 +56,10 @@ public enum GameCharacterTypeId {
 
 /// <summary>UI.UIStringType localization tables (not on-the-wire identifiers).</summary>
 public enum GameLocalizationTableId {
-    Character = 10,
-    Map = 31
+    // Verified against 2026-10-16 UI.UIStringType. The game inserted
+    // another table before Character; old values queried STRCard.
+    // 2026-10-16 热更枚举值；旧 Character=10 会错查 STRCard。
+    Card = 10,
+    Character = 11,
+    Map = 32
 }
