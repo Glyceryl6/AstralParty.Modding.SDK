@@ -34,7 +34,7 @@ public static class IndexedStatistics {
     public static IReadOnlyList<IndexedStatisticRow> Present(IIndexedStatisticReader reader) {
         ArgumentNullException.ThrowIfNull(reader);
         return reader.ReadRows()
-            .Where(row => row.Games.HasValue || row.Wins.HasValue)
+            .Where(row => row.Kind == StatisticEntityKind.Map || row.Games.HasValue || row.Wins.HasValue)
             .OrderBy(row => row.Kind)
             .ThenBy(row => row.EntityId)
             .ToArray();
