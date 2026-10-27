@@ -11,6 +11,14 @@ namespace AstralParty.Modding.SDK;
 public readonly record struct UiLayoutRect(float X, float Y, float Width, float Height);
 
 public static class NativeUiLayout {
+    /// <summary>Fit authored artwork without changing its aspect ratio.</summary>
+    public static float UniformScale(float nativeWidth, float nativeHeight, float width, float height) {
+        if (!float.IsFinite(nativeWidth) || !float.IsFinite(nativeHeight) || !float.IsFinite(width) || !float.IsFinite(height) ||
+            nativeWidth <= 0f || nativeHeight <= 0f || width <= 0f || height <= 0f)
+            throw new ArgumentOutOfRangeException(nameof(width));
+        return Math.Min(width / nativeWidth, height / nativeHeight);
+    }
+
     /// <summary>Chinese-safe upper bound for a single-line caption.</summary>
     public static float EstimateCaptionWidth(string? text, float fontSize) {
         if (fontSize <= 0f) {

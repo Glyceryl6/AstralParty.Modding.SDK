@@ -9,7 +9,9 @@ namespace AstralParty.Modding.SDK;
 /// SDK 只存托管契约，游戏调用交由宿主适配层处理。
 /// </summary>
 public static class SdkHost {
-    public static Version ApiVersion { get; } = new(0, 6, 7);
+    /// <summary>Shared host binding list. Register/dispose on the Unity UI thread; callers own input polling and persistence.</summary>
+    public static HotkeyRegistry Hotkeys { get; } = new();
+    public static Version ApiVersion { get; } = new(0, 7, 0);
     public static IRuntimeCapabilitySource? Capabilities { get; private set; }
     public static IModUiService? Ui { get; private set; }
     public static IClientValueRegistry? ClientValues { get; private set; }
