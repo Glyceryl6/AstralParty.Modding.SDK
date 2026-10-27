@@ -11,7 +11,7 @@ namespace AstralParty.Modding.SDK;
 public static class SdkHost {
     /// <summary>Shared host binding list. Register/dispose on the Unity UI thread; callers own input polling and persistence.</summary>
     public static HotkeyRegistry Hotkeys { get; } = new();
-    public static Version ApiVersion { get; } = new(0, 7, 0);
+    public static Version ApiVersion { get; } = new(0, 8, 0);
     public static IRuntimeCapabilitySource? Capabilities { get; private set; }
     public static IModUiService? Ui { get; private set; }
     public static IClientValueRegistry? ClientValues { get; private set; }
