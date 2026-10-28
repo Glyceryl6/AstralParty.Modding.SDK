@@ -7,7 +7,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
-    <Version>0.8.0</Version>
+    <Version>0.8.1</Version>
     <Description>Version-tolerant, managed services and optional native IL2CPP helpers for Astral Party IL2CPP mods.</Description>
   </PropertyGroup>
   <ItemGroup>
