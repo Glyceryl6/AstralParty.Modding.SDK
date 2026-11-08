@@ -15,8 +15,10 @@ def verify() -> None:
     native = ET.parse(NATIVE / "AstralParty.Modding.SDK.Native.csproj").getroot()
     assert any("Native/**/*.cs" in x.attrib.get("Remove", "") for x in core.iter("Compile"))
     assert any("../AstralParty.Modding.SDK.csproj" in x.attrib.get("Include", "") for x in native.iter("ProjectReference"))
-    assert "0.10.0" in (ROOT / "AstralParty.Modding.SDK.csproj").read_text()
-    assert "0.10.0" in (NATIVE / "AstralParty.Modding.SDK.Native.csproj").read_text()
+    # Retain the minimum migration version without pinning future maintenance releases.
+    for project in (ROOT / "AstralParty.Modding.SDK.csproj", NATIVE / "AstralParty.Modding.SDK.Native.csproj"):
+        version = ET.parse(project).findtext(".//Version")
+        assert version is not None and tuple(map(int, version.split("."))) >= (0, 10, 0), (project, version)
     assert (ROOT / "docs" / "README-v0.8.0.md").is_file()
     assert (ROOT / "tests/CoreServices/CoreServices.csproj").is_file()
     assert (ROOT / "Interop/Il2CppNative.cs").is_file()
