@@ -34,5 +34,5 @@ include = [node.get('Project') for node in imports]
 check(include.index('build/NativeInteropPaths.props') < include.index('build/NativeInteropReferences.targets'), 'Path import must precede targets')
 check('SdkLocal.props' in include, 'SDK standalone config not available')
 check('AstralInteropDir' in paths.read_text(), 'Missing early proxy resolution')
-check('0.11.0' in csproj.read_text(), 'SDK version not updated')
+check('0.12.0' in csproj.read_text(), 'SDK version not updated')
 print('[PASS] SDK native reference regression checks')
