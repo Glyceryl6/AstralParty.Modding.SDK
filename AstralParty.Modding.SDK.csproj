@@ -12,8 +12,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="tests/**/*.cs" />
+    <Compile Remove="AstralParty.Modding.SDK\Configuration\ReloadableFile.cs" />
+    <Compile Remove="AstralParty.Modding.SDK\Interop\Il2CppNative.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AstralParty.Modding.SDK\Configuration\" />
+    <Folder Include="AstralParty.Modding.SDK\Input\" />
     <Folder Include="AstralParty.Modding.SDK\tests\CoreServices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="AstralParty.Modding.SDK\docs\README-v0.7.0.md" />
   </ItemGroup>
 </Project>
