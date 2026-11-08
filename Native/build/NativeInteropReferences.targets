@@ -1,0 +1,64 @@
+<Project>
+  <!-- Shared native proxy references for the host and its optional addons. -->
+  <PropertyGroup>
+    <AstralNativeInteropReferencesImported>true</AstralNativeInteropReferencesImported>
+  </PropertyGroup>
+  <PropertyGroup>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+    <AstralGameDir Condition="'$(AstralGameDir)' == '' and '$(ASTRAL_PARTY_GAME_DIR)' != ''">$(ASTRAL_PARTY_GAME_DIR)</AstralGameDir>
+    <AstralInteropDir Condition="'$(AstralInteropDir)' == '' and '$(ASTRAL_PARTY_INTEROP_DIR)' != ''">$(ASTRAL_PARTY_INTEROP_DIR)</AstralInteropDir>
+    <AstralInteropDir Condition="'$(AstralInteropDir)' == '' and '$(AstralGameDir)' != '' and Exists('$(AstralGameDir)/BepInEx/interop/UnityEngine.CoreModule.dll')">$(AstralGameDir)/BepInEx/interop</AstralInteropDir>
+    <AstralInteropDir Condition="'$(AstralInteropDir)' == '' and Exists('$(MSBuildProjectDirectory)/lib/interop/UnityEngine.CoreModule.dll')">$(MSBuildProjectDirectory)/lib/interop</AstralInteropDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AstralInteropDir)' != '' and Exists('$(AstralInteropDir)/UnityEngine.ScreenCaptureModule.dll')">
+    <DefineConstants>$(DefineConstants);ASTRAL_HAS_SCREENSHOT</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AstralInteropDir)' != '' and Exists('$(AstralInteropDir)/UnityEngine.TextRenderingModule.dll')">
+    <DefineConstants>$(DefineConstants);ASTRAL_HAS_TEXT_RENDERING</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(AstralInteropDir)' != ''">
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>$(AstralInteropDir)/Il2Cppmscorlib.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(AstralInteropDir)/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(AstralInteropDir)/UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule" Condition="Exists('$(AstralInteropDir)/UnityEngine.TextRenderingModule.dll')">
+      <HintPath>$(AstralInteropDir)/UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule" Condition="Exists('$(AstralInteropDir)/UnityEngine.ScreenCaptureModule.dll')">
+      <HintPath>$(AstralInteropDir)/UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Il2CppSystem" Condition="Exists('$(AstralInteropDir)/Il2CppSystem.dll')">
+      <HintPath>$(AstralInteropDir)/Il2CppSystem.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Il2CppSystem.Core" Condition="Exists('$(AstralInteropDir)/Il2CppSystem.Core.dll')">
+      <HintPath>$(AstralInteropDir)/Il2CppSystem.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="ValidateAstralNativeInterop" BeforeTargets="ResolveReferences">
+    <Error Condition="'$(AstralInteropDir)' == ''"
+           Text="Missing game IL2CPP proxies. Set AstralGameDir in AstralLocal.props, ASTRAL_PARTY_GAME_DIR, or -p:AstralInteropDir=..." />
+    <Error Condition="'$(AstralInteropDir)' != '' and !Exists('$(AstralInteropDir)/Il2Cppmscorlib.dll')"
+           Text="Missing Il2Cppmscorlib.dll in $(AstralInteropDir)." />
+    <Error Condition="'$(AstralInteropDir)' != '' and !Exists('$(AstralInteropDir)/UnityEngine.CoreModule.dll')"
+           Text="Missing UnityEngine.CoreModule.dll in $(AstralInteropDir)." />
+    <Error Condition="'$(AstralInteropDir)' != '' and !Exists('$(AstralInteropDir)/UnityEngine.InputLegacyModule.dll')"
+           Text="Missing UnityEngine.InputLegacyModule.dll in $(AstralInteropDir)." />
+  </Target>
+</Project>

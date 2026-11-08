@@ -1,0 +1,6 @@
+<Project>
+  <!-- Example local game path / 填写本机游戏目录；复制为 NativeLocal.props。 -->
+  <PropertyGroup>
+    <AstralGameDir>D:\Games\Astral Party</AstralGameDir>
+  </PropertyGroup>
+</Project>

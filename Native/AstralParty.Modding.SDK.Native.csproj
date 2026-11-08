@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>AstralParty.Modding.SDK.Native</AssemblyName>
+    <RootNamespace>AstralParty.Modding.SDK.Native</RootNamespace>
+    <Version>0.10.0</Version>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <Description>Reusable Astral Party Unity/IL2CPP native UI and interop helpers.</Description>
+  </PropertyGroup>
+  <Import Project="NativeLocal.props" Condition="Exists('NativeLocal.props')" />
+  <Import Project="build/NativeInteropReferences.targets" />
+  <ItemGroup>
+    <ProjectReference Include="../AstralParty.Modding.SDK.csproj" />
+    <PackageReference Include="Il2CppInterop.Runtime" Version="1.5.3" ExcludeAssets="all" PrivateAssets="all" />
+    <PackageReference Include="Il2CppInterop.Common" Version="1.5.3" ExcludeAssets="all" PrivateAssets="all" />
+    <PackageReference Include="SNWCreations.Il2CppInterop.Runtime" Version="[1.5.2-snw.4]" />
+    <PackageReference Include="SNWCreations.Il2CppInterop.Common" Version="[1.5.2-snw.4]" />
+    <PackageReference Include="IL2CppSharp" Version="0.1.0-alpha.5" />
+    <PackageReference Include="IL2CppSharp.Hooking" Version="0.1.2-alpha.1" />
+  </ItemGroup>
+</Project>
