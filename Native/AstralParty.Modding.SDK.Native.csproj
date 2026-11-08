@@ -3,14 +3,19 @@
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>AstralParty.Modding.SDK.Native</AssemblyName>
     <RootNamespace>AstralParty.Modding.SDK.Native</RootNamespace>
-    <Version>0.10.0</Version>
+    <Version>0.10.1</Version>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <Description>Reusable Astral Party Unity/IL2CPP native UI and interop helpers.</Description>
   </PropertyGroup>
+  <!-- When the SDK is opened alone, reuse the sibling MOD's personal game path if available.
+       SDK 自身的 NativeLocal.props 可覆盖共享路径；命令行全局属性始终优先。 -->
+  <Import Project="../../AstralProbe/AstralLocal.props"
+          Condition="'$(AstralGameDir)' == '' and '$(AstralInteropDir)' == '' and Exists('../../AstralProbe/AstralLocal.props')" />
   <Import Project="NativeLocal.props" Condition="Exists('NativeLocal.props')" />
+  <Import Project="build/NativeInteropPaths.props" />
   <Import Project="build/NativeInteropReferences.targets" />
   <ItemGroup>
     <ProjectReference Include="../AstralParty.Modding.SDK.csproj" />

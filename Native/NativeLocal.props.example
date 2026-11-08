@@ -1,6 +1,8 @@
 <Project>
-  <!-- Example local game path / 填写本机游戏目录；复制为 NativeLocal.props。 -->
   <PropertyGroup>
+    <!-- Standalone Rider SDK: copy to NativeLocal.props and set ONE of these paths.
+         单独打开 SDK 时复制为 NativeLocal.props，填写游戏根目录或直接填写代理程序集目录。 -->
     <AstralGameDir>D:\Games\Astral Party</AstralGameDir>
+    <!-- Or: <AstralInteropDir>D:\Games\Astral Party\BepInEx\interop</AstralInteropDir> -->
   </PropertyGroup>
 </Project>
