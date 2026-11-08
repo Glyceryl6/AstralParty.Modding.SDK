@@ -1,3 +1,4 @@
+using AstralParty.Modding.SDK.Native;
 using System;
 using System.Collections.Generic;
 

@@ -7,8 +7,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
-    <Version>0.11.0</Version>
-    <Description>Unified Astral Party SDK with managed and Unity/IL2CPP native helpers.</Description>
+    <Version>0.12.0</Version>
+    <Description>Astral Party SDK with unified Native namespace and game-specific IL2CPP helpers.</Description>
   </PropertyGroup>
 
   <!-- SDK 独立打开时可读取本机配置；游戏代理程序集不会被复制到输出目录。
@@ -23,8 +23,8 @@
   <Import Project="build/NativeInteropReferences.targets" />
 
   <ItemGroup>
-    <!-- The default SDK compile glob now includes Native/Interop and Native/UI exactly once.
-         保留 Native 命名空间，但所有类都编译进同一个 SDK DLL。 -->
+    <!-- The default SDK compile glob includes every Native/ subfolder exactly once.
+         Native 子目录按用途分类，只有一个 SDK DLL，不需要手工添加 Compile Include。 -->
     <Compile Remove="tests/**/*.cs" />
     <PackageReference Include="Il2CppInterop.Runtime" Version="1.5.3" ExcludeAssets="all" PrivateAssets="all" />
     <PackageReference Include="Il2CppInterop.Common" Version="1.5.3" ExcludeAssets="all" PrivateAssets="all" />
@@ -32,5 +32,17 @@
     <PackageReference Include="SNWCreations.Il2CppInterop.Common" Version="[1.5.2-snw.4]" />
     <PackageReference Include="IL2CppSharp" Version="0.1.0-alpha.5" />
     <PackageReference Include="IL2CppSharp.Hooking" Version="0.1.2-alpha.1" />
+    <Compile Remove="Media\PngFiles.cs" />
+    <Compile Remove="Native\UI\NativeModeListScroller.cs" />
+    <Compile Remove="Native\Interop\NativeToggleLayout.cs" />
+    <Compile Remove="Native\UI\StableNativeAction.cs" />
+    <Compile Remove="Interop\Il2CppNative.cs" />
+    <Compile Remove="Native\UI\ModCaptionOutline.cs" />
+    <Compile Remove="UI\NativeUiEnums.cs" />
+    <Compile Remove="Statistics\AchievementPresentation.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Media\" />
   </ItemGroup>
 </Project>

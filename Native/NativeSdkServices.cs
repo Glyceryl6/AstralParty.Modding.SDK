@@ -17,6 +17,7 @@ public static class NativeSdkServices {
     private static Func<float>? _titleOutline;
     private static Func<bool>? _uiTypographyDiagnostics;
 
+    /// <summary>注册宿主的翻译、日志与布局参数回调；这是进程级共享服务，多个 MOD 不应反复覆盖。</summary>
     public static void Configure(
         Func<string, string>? translate = null,
         Action<string>? warn = null,
@@ -36,7 +37,9 @@ public static class NativeSdkServices {
         _uiTypographyDiagnostics = uiTypographyDiagnostics;
     }
 
+    /// <summary>通过宿主提供的翻译回调获取文本；未配置时原样返回键名。</summary>
     public static string Translate(string text) => _translate(text);
+    /// <summary>向宿主日志输出警告；没有宿主回调时静默跳过。</summary>
     public static void Warn(string message) => _warn?.Invoke(message);
     public static void Info(string message) => _info?.Invoke(message);
     public static string EnumLabelAssemblyPath => _enumLabelAssemblyPath?.Invoke() ?? "";
