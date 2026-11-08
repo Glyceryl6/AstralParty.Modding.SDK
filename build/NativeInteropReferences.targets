@@ -32,7 +32,7 @@
   <Target Name="ValidateAstralNativeInterop" BeforeTargets="ResolveReferences"
           Condition="'$(DesignTimeBuild)' != 'true'">
     <Error Condition="'$(AstralInteropDir)' == ''"
-           Text="Missing Unity/IL2CPP game proxies. Set AstralGameDir in AstralLocal.props or NativeLocal.props, ASTRAL_PARTY_GAME_DIR, or -p:AstralInteropDir=GAME/BepInEx/interop." />
+           Text="Missing Unity/IL2CPP game proxies. Set AstralGameDir in AstralLocal.props or SdkLocal.props, ASTRAL_PARTY_GAME_DIR, or -p:AstralInteropDir=GAME/BepInEx/interop." />
     <Error Condition="'$(AstralInteropDir)' != '' and !Exists('$(AstralInteropDir)/Il2Cppmscorlib.dll')"
            Text="Missing Il2Cppmscorlib.dll at $(AstralInteropDir). Confirm BepInEx/interop was generated for this game." />
     <Error Condition="'$(AstralInteropDir)' != '' and !Exists('$(AstralInteropDir)/UnityEngine.CoreModule.dll')"

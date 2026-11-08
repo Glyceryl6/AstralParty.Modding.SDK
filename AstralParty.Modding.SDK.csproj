@@ -7,32 +7,30 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
-    <Version>0.10.1</Version>
-    <Description>Version-tolerant, managed services and optional native IL2CPP helpers for Astral Party IL2CPP mods.</Description>
-    <AstralBepInExIl2CppPackageVersion Condition="'$(AstralBepInExIl2CppPackageVersion)' == ''">6.0.0-be.789</AstralBepInExIl2CppPackageVersion>
+    <Version>0.11.0</Version>
+    <Description>Unified Astral Party SDK with managed and Unity/IL2CPP native helpers.</Description>
   </PropertyGroup>
+
+  <!-- SDK 独立打开时可读取本机配置；游戏代理程序集不会被复制到输出目录。
+       Command-line -p:AstralInteropDir overrides local files for CI and exported MODs. -->
+  <Import Project="../AstralProbe/AstralLocal.props"
+          Condition="'$(AstralGameDir)' == '' and '$(AstralInteropDir)' == '' and Exists('../AstralProbe/AstralLocal.props')" />
+  <!-- Accept the old per-Native local path during migration. -->
+  <Import Project="Native/NativeLocal.props"
+          Condition="'$(AstralGameDir)' == '' and '$(AstralInteropDir)' == '' and Exists('Native/NativeLocal.props')" />
+  <Import Project="SdkLocal.props" Condition="Exists('SdkLocal.props')" />
+  <Import Project="build/NativeInteropPaths.props" />
+  <Import Project="build/NativeInteropReferences.targets" />
+
   <ItemGroup>
+    <!-- The default SDK compile glob now includes Native/Interop and Native/UI exactly once.
+         保留 Native 命名空间，但所有类都编译进同一个 SDK DLL。 -->
     <Compile Remove="tests/**/*.cs" />
-    <Compile Remove="AstralParty.Modding.SDK\Configuration\ReloadableFile.cs" />
-    <Compile Remove="AstralParty.Modding.SDK\Interop\Il2CppNative.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AstralParty.Modding.SDK\Configuration\" />
-    <Folder Include="AstralParty.Modding.SDK\Input\" />
-    <Folder Include="AstralParty.Modding.SDK\tests\CoreServices\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="[$(AstralBepInExIl2CppPackageVersion)]" IncludeAssets="compile" />
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <!-- Exclude upstream same-name DLL assets before compiler conflict resolution. -->
     <PackageReference Include="Il2CppInterop.Runtime" Version="1.5.3" ExcludeAssets="all" PrivateAssets="all" />
     <PackageReference Include="Il2CppInterop.Common" Version="1.5.3" ExcludeAssets="all" PrivateAssets="all" />
     <PackageReference Include="SNWCreations.Il2CppInterop.Runtime" Version="[1.5.2-snw.4]" />
     <PackageReference Include="SNWCreations.Il2CppInterop.Common" Version="[1.5.2-snw.4]" />
     <PackageReference Include="IL2CppSharp" Version="0.1.0-alpha.5" />
     <PackageReference Include="IL2CppSharp.Hooking" Version="0.1.2-alpha.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="AstralParty.Modding.SDK\docs\README-v0.7.0.md" />
   </ItemGroup>
 </Project>

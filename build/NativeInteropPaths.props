@@ -7,6 +7,6 @@
     <AstralInteropDir Condition="'$(AstralInteropDir)' == '' and '$(AstralGameDir)' != ''">$(AstralGameDir)/BepInEx/interop</AstralInteropDir>
     <!-- Optional local proxy copies for standalone SDK workspaces. -->
     <AstralInteropDir Condition="'$(AstralInteropDir)' == '' and Exists('$(MSBuildProjectDirectory)/lib/interop/UnityEngine.CoreModule.dll')">$(MSBuildProjectDirectory)/lib/interop</AstralInteropDir>
-    <AstralInteropDir Condition="'$(AstralInteropDir)' == '' and Exists('$(MSBuildThisFileDirectory)../../lib/interop/UnityEngine.CoreModule.dll')">$(MSBuildThisFileDirectory)../../lib/interop</AstralInteropDir>
+    <AstralInteropDir Condition="'$(AstralInteropDir)' == '' and Exists('$(MSBuildThisFileDirectory)../lib/interop/UnityEngine.CoreModule.dll')">$(MSBuildThisFileDirectory)../../lib/interop</AstralInteropDir>
   </PropertyGroup>
 </Project>
