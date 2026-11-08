@@ -12,9 +12,9 @@ def check(ok, message):
     if not ok:
         raise AssertionError(message)
 
-paths = NATIVE / 'build' / 'NativeInteropPaths.props'
-targets = NATIVE / 'build' / 'NativeInteropReferences.targets'
-csproj = NATIVE / 'AstralParty.Modding.SDK.Native.csproj'
+paths = ROOT / 'build' / 'NativeInteropPaths.props'
+targets = ROOT / 'build' / 'NativeInteropReferences.targets'
+csproj = ROOT / 'AstralParty.Modding.SDK.csproj'
 for path in (paths, targets, csproj, ROOT / 'AstralParty.Modding.SDK.csproj'):
     check(path.exists(), f'Missing {path}')
     ET.parse(path)
@@ -32,7 +32,7 @@ check("'$(DesignTimeBuild)' != 'true'" in targets.read_text(), 'Do not fail Ride
 imports = ET.parse(csproj).getroot().findall('Import')
 include = [node.get('Project') for node in imports]
 check(include.index('build/NativeInteropPaths.props') < include.index('build/NativeInteropReferences.targets'), 'Path import must precede targets')
-check('NativeLocal.props' in include, 'SDK standalone config not available')
+check('SdkLocal.props' in include, 'SDK standalone config not available')
 check('AstralInteropDir' in paths.read_text(), 'Missing early proxy resolution')
-check('0.10.1' in csproj.read_text(), 'SDK Native version not updated')
+check('0.11.0' in csproj.read_text(), 'SDK version not updated')
 print('[PASS] SDK native reference regression checks')

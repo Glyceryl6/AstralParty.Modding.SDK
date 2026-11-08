@@ -12,13 +12,10 @@ GROUPS = {"Interop": 22, "UI": 12}
 def verify() -> None:
     assert not (ROOT / "AstralParty.Modding.SDK").exists(), "redundant nested SDK folder remains"
     core = ET.parse(ROOT / "AstralParty.Modding.SDK.csproj").getroot()
-    native = ET.parse(NATIVE / "AstralParty.Modding.SDK.Native.csproj").getroot()
-    assert any("Native/**/*.cs" in x.attrib.get("Remove", "") for x in core.iter("Compile"))
-    assert any("../AstralParty.Modding.SDK.csproj" in x.attrib.get("Include", "") for x in native.iter("ProjectReference"))
-    # Retain the minimum migration version without pinning future maintenance releases.
-    for project in (ROOT / "AstralParty.Modding.SDK.csproj", NATIVE / "AstralParty.Modding.SDK.Native.csproj"):
-        version = ET.parse(project).findtext(".//Version")
-        assert version is not None and tuple(map(int, version.split("."))) >= (0, 10, 0), (project, version)
+    assert not (NATIVE / "AstralParty.Modding.SDK.Native.csproj").exists()
+    assert not any("Native/**/*.cs" in x.attrib.get("Remove", "") for x in core.iter("Compile"))
+    version = ET.parse(ROOT / "AstralParty.Modding.SDK.csproj").findtext(".//Version")
+    assert version is not None and tuple(map(int, version.split("."))) >= (0, 11, 0), version
     assert (ROOT / "docs" / "README-v0.8.0.md").is_file()
     assert (ROOT / "tests/CoreServices/CoreServices.csproj").is_file()
     assert (ROOT / "Interop/Il2CppNative.cs").is_file()
@@ -34,8 +31,8 @@ def verify() -> None:
     services = (NATIVE / "NativeSdkServices.cs").read_text()
     assert "public static void Configure" in services
     assert "ActionButtonFontSize" in services and "EnumLabelAssemblyPath" in services
-    assert (NATIVE / "build/NativeInteropReferences.targets").is_file()
-    print("SDK v0.10.0: 34 native files, core isolation and callbacks verified / 检查通过")
+    assert (ROOT / "build/NativeInteropReferences.targets").is_file()
+    print("SDK v0.10.0: 34 native files, native sources and callbacks verified / 检查通过")
 
 
 if __name__ == "__main__":
