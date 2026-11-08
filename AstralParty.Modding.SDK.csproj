@@ -9,6 +9,7 @@
     <LangVersion>latest</LangVersion>
     <Version>0.9.0</Version>
     <Description>Version-tolerant, managed services and optional native IL2CPP helpers for Astral Party IL2CPP mods.</Description>
+    <AstralBepInExIl2CppPackageVersion Condition="'$(AstralBepInExIl2CppPackageVersion)' == ''">6.0.0-be.789</AstralBepInExIl2CppPackageVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="tests/**/*.cs" />
@@ -19,6 +20,17 @@
     <Folder Include="AstralParty.Modding.SDK\Configuration\" />
     <Folder Include="AstralParty.Modding.SDK\Input\" />
     <Folder Include="AstralParty.Modding.SDK\tests\CoreServices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="[$(AstralBepInExIl2CppPackageVersion)]" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+    <!-- Exclude upstream same-name DLL assets before compiler conflict resolution. -->
+    <PackageReference Include="Il2CppInterop.Runtime" Version="1.5.3" ExcludeAssets="all" PrivateAssets="all" />
+    <PackageReference Include="Il2CppInterop.Common" Version="1.5.3" ExcludeAssets="all" PrivateAssets="all" />
+    <PackageReference Include="SNWCreations.Il2CppInterop.Runtime" Version="[1.5.2-snw.4]" />
+    <PackageReference Include="SNWCreations.Il2CppInterop.Common" Version="[1.5.2-snw.4]" />
+    <PackageReference Include="IL2CppSharp" Version="0.1.0-alpha.5" />
+    <PackageReference Include="IL2CppSharp.Hooking" Version="0.1.2-alpha.1" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="AstralParty.Modding.SDK\docs\README-v0.7.0.md" />
